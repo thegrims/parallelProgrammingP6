@@ -7,7 +7,7 @@
 #SBATCH -e first.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=grimshaa@oregonstate.edu
-for LOCAL_SIZE in 8 64
+for LOCAL_SIZE in 8 64 128 256 512
 do
     g++ -DLOCAL_SIZE=$LOCAL_SIZE -o first first.cpp /usr/local/apps/cuda/cuda-10.1/lib64/libOpenCL.so.1.1 -lm -fopenmp -w
     ./first
