@@ -9,6 +9,6 @@
 #SBATCH --mail-user=grimshaa@oregonstate.edu
 for LOCAL_SIZE in 8 64 128 256 512
 do
-    g++ -D LOCAL_SIZE=$LOCAL_SIZE -o -w first first.cpp /usr/local/apps/cuda/cuda-10.1/lib64/libOpenCL.so.1.1 -lm -fopenmp
+    g++ -D LOCAL_SIZE=$LOCAL_SIZE -o first first.cpp /usr/local/apps/cuda/cuda-10.1/lib64/libOpenCL.so.1.1 -lm -fopenmp
     ./first
 done
