@@ -1,25 +1,25 @@
-    1024	   8	       128	     0.021 GigaMultsPerSecond
-    1024	  64	        16	     0.023 GigaMultsPerSecond
-    1024	 128	         8	     0.021 GigaMultsPerSecond
-    1024	 256	         4	     0.017 GigaMultsPerSecond
-    1024	 512	         2	     0.020 GigaMultsPerSecond
-   51200	   8	      6400	     0.860 GigaMultsPerSecond
-   51200	  64	       800	     0.690 GigaMultsPerSecond
-   51200	 128	       400	     1.083 GigaMultsPerSecond
-   51200	 256	       200	     0.932 GigaMultsPerSecond
-   51200	 512	       100	     0.567 GigaMultsPerSecond
-  256000	   8	     32000	     0.676 GigaMultsPerSecond
-  256000	  64	      4000	     0.027 GigaMultsPerSecond
-  256000	 128	      2000	     0.012 GigaMultsPerSecond
-  256000	 256	      1000	     0.911 GigaMultsPerSecond
-  256000	 512	       500	     0.791 GigaMultsPerSecond
- 1024000	   8	    128000	     1.471 GigaMultsPerSecond
- 1024000	  64	     16000	     0.044 GigaMultsPerSecond
- 1024000	 128	      8000	     2.643 GigaMultsPerSecond
- 1024000	 256	      4000	     2.933 GigaMultsPerSecond
- 1024000	 512	      2000	     2.927 GigaMultsPerSecond
- 8192000	   8	   1024000	     2.934 GigaMultsPerSecond
- 8192000	  64	    128000	     6.631 GigaMultsPerSecond
- 8192000	 128	     64000	     0.009 GigaMultsPerSecond
- 8192000	 256	     32000	    15.477 GigaMultsPerSecond
- 8192000	 512	     16000	    16.458 GigaMultsPerSecond
+    1024	   8	       128	     0.021
+    1024	  64	        16	     0.023
+    1024	 128	         8	     0.021
+    1024	 256	         4	     0.017
+    1024	 512	         2	     0.020
+   51200	   8	      6400	     0.860
+   51200	  64	       800	     0.690
+   51200	 128	       400	     1.083
+   51200	 256	       200	     0.932
+   51200	 512	       100	     0.567
+  256000	   8	     32000	     0.676
+  256000	  64	      4000	     0.027
+  256000	 128	      2000	     0.012
+  256000	 256	      1000	     0.911
+  256000	 512	       500	     0.791
+ 1024000	   8	    128000	     1.471
+ 1024000	  64	     16000	     0.044
+ 1024000	 128	      8000	     2.643
+ 1024000	 256	      4000	     2.933
+ 1024000	 512	      2000	     2.927
+ 8192000	   8	   1024000	     2.934
+ 8192000	  64	    128000	     6.631
+ 8192000	 128	     64000	     0.009
+ 8192000	 256	     32000	    15.477
+ 8192000	 512	     16000	    16.458
