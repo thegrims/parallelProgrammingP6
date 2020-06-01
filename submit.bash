@@ -8,11 +8,11 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=grimshaa@oregonstate.edu
 
-for NUM_ELEMENTS in 1024 51200 256000 1024000 8192000
+for LOCAL_SIZE in 8 64 128 256 512
 do
-    for LOCAL_SIZE in 8 64 128 256 512
+    for NUM_ELEMENTS in 1024 51200 256000 1024000 8192000
     do
-        g++ -DLOCAL_SIZE=$LOCAL_SIZE -DNUM_ELEMENTS=$NUM_ELEMENTS -o first first.cpp /usr/local/apps/cuda/cuda-10.1/lib64/libOpenCL.so.1.1 -lm -fopenmp -w
+        g++ -DLOCAL_SIZE=$LOCAL_SIZE -DNUM_ELEMENTS=$NUM_ELEMENTS -o first multiply.cpp /usr/local/apps/cuda/cuda-10.1/lib64/libOpenCL.so.1.1 -lm -fopenmp -w
         ./first
     done
 done
