@@ -189,17 +189,17 @@ int main(int argc, char *argv[])
     PrintCLError(status, "clEnqueueNDRangeKernel failed: ");
     Wait(cmdQueue);
     double time1 = omp_get_wtime();
-    status = clEnqueueReadBuffer(cmdQueue, dC, CL_TRUE, 0, numWorkGroups * sizeof(float), hC,
-                                 0, NULL, NULL);
+    status = clEnqueueReadBuffer(cmdQueue, dC, CL_TRUE, 0, NUM_ELEMENTS; *sizeof(float), hC,
+                                                                         0, NULL, NULL);
     PrintCLError(status, "clEnqueueReadBufferl failed: ");
     Wait(cmdQueue);
     float sum = 0.;
-    for (int i = 0; i < numWorkgroups; i++)
+    for (int i = 0; i < NUM_ELEMENTS;; i++)
     {
         sum += hC[i];
     }
 
-    fprintf(stderr, "%8d\t%4d\t%10d\t%10.3lf\n",
+    fprintf(stdout, "%8d\t%4d\t%10d\t%10.3lf\n",
             NUM_ELEMENTS, LOCAL_SIZE, NUM_WORK_GROUPS, (double)NUM_ELEMENTS / (time1 - time0) / 1000000000.);
 
 #ifdef WIN32
