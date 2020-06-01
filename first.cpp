@@ -123,7 +123,7 @@ main( int argc, char *argv[ ] )
 	if( status != CL_SUCCESS )
 		fprintf( stderr, "clEnqueueWriteBuffer failed (2)\n" );
 
-	status = clEnqueueWriteBuffer(cmdQueue, dD, CL_FALSE, 0, dataSize, hB, 0, NULL, NULL);
+	status = clEnqueueWriteBuffer(cmdQueue, dD, CL_FALSE, 0, dataSize, hD, 0, NULL, NULL);
 	if (status != CL_SUCCESS)
 		fprintf(stderr, "clEnqueueWriteBuffer failed (3)\n");
 
@@ -214,7 +214,7 @@ main( int argc, char *argv[ ] )
 
 	for( int i = 0; i < NUM_ELEMENTS; i++ )
 	{
-		float expected = hA[i] * hB[i];
+		float expected = (hA[i] * hB[i]) + hD[i];
 		if( fabs( hC[i] - expected ) > TOL )
 		{
 			//fprintf( stderr, "%4d: %13.6f * %13.6f wrongly produced %13.6f instead of %13.6f (%13.8f)\n",
@@ -224,7 +224,7 @@ main( int argc, char *argv[ ] )
 		}
 	}
 
-	fprintf(stderr, "%8d\t%4d\t%10d\t%10.3lf\n",
+	fprintf(stdout, "%8d\t%4d\t%10d\t%10.3lf\n",
 			NUM_ELEMENTS, LOCAL_SIZE, NUM_WORK_GROUPS, (double)NUM_ELEMENTS / (time1 - time0) / 1000000000.);
 
 #ifdef WIN32
