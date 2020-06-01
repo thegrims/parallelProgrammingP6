@@ -186,12 +186,16 @@ int main(int argc, char *argv[])
     double time0 = omp_get_wtime();
     status = clEnqueueNDRangeKernel(cmdQueue, kernel, 1, NULL, globalWorkSize, localWorkSize,
                                     0, NULL, NULL);
-    PrintCLError(status, "clEnqueueNDRangeKernel failed: ");
+    if (status != CL_SUCCESS)
+        fprintf(stderr, "clEnqueueNDRangeKernel failed: %d\n", status);
+
     Wait(cmdQueue);
     double time1 = omp_get_wtime();
     status = clEnqueueReadBuffer(cmdQueue, dC, CL_TRUE, 0, NUM_ELEMENTS *sizeof(float), hC,
                                                                          0, NULL, NULL);
-    PrintCLError(status, "clEnqueueReadBufferl failed: ");
+    if (status != CL_SUCCESS)
+        fprintf(stderr, "clEnqueueReadBuffer failed\n");
+        
     Wait(cmdQueue);
     float sum = 0.;
     for (int i = 0; i < NUM_ELEMENTS; i++)
