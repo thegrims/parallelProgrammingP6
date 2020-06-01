@@ -8,7 +8,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=grimshaa@oregonstate.edu
 
-for LOCAL_SIZE in 8 64 128 256 512
+for LOCAL_SIZE in 32 64 128 256
 do
     for NUM_ELEMENTS in 1024 51200 256000 1024000 8192000
     do

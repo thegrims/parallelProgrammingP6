@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
 
     // 9. create the kernel object:
 
-    cl_kernel kernel = clCreateKernel(program, "ArrayMult", &status);
+    cl_kernel kernel = clCreateKernel(program, "ArrayMultReduce", &status);
     if (status != CL_SUCCESS)
         fprintf(stderr, "clCreateKernel failed\n");
 
@@ -169,9 +169,13 @@ int main(int argc, char *argv[])
     if (status != CL_SUCCESS)
         fprintf(stderr, "clSetKernelArg failed (2)\n");
 
-    status = clSetKernelArg(kernel, 2, sizeof(cl_mem), &dC);
+    status = clSetKernelArg(kernel, 2, LOCAL_SIZE * sizeof(float), NULL);
     if (status != CL_SUCCESS)
         fprintf(stderr, "clSetKernelArg failed (3)\n");
+
+    status = clSetKernelArg(kernel, 3, sizeof(cl_mem), &dC);
+    if (status != CL_SUCCESS)
+        fprintf(stderr, "clSetKernelArg failed (4)\n");
 
     // 11. enqueue the kernel object for execution:
 
@@ -180,37 +184,22 @@ int main(int argc, char *argv[])
 
     Wait(cmdQueue);
     double time0 = omp_get_wtime();
-
-    time0 = omp_get_wtime();
-
-    status = clEnqueueNDRangeKernel(cmdQueue, kernel, 1, NULL, globalWorkSize, localWorkSize, 0, NULL, NULL);
-    if (status != CL_SUCCESS)
-        fprintf(stderr, "clEnqueueNDRangeKernel failed: %d\n", status);
-
+    status = clEnqueueNDRangeKernel(cmdQueue, kernel, 1, NULL, globalWorkSize, localWorkSize,
+                                    0, NULL, NULL);
+    PrintCLError(status, "clEnqueueNDRangeKernel failed: ");
     Wait(cmdQueue);
     double time1 = omp_get_wtime();
-
-    // 12. read the results buffer back from the device to the host:
-
-    status = clEnqueueReadBuffer(cmdQueue, dC, CL_TRUE, 0, dataSize, hC, 0, NULL, NULL);
-    if (status != CL_SUCCESS)
-        fprintf(stderr, "clEnqueueReadBuffer failed\n");
-
-    // did it work?
-
-    for (int i = 0; i < NUM_ELEMENTS; i++)
+    status = clEnqueueReadBuffer(cmdQueue, dC, CL_TRUE, 0, numWorkGroups * sizeof(float), hC,
+                                 0, NULL, NULL);
+    PrintCLError(status, "clEnqueueReadBufferl failed: ");
+    Wait(cmdQueue);
+    float sum = 0.;
+    for (int i = 0; i < numWorkgroups; i++)
     {
-        float expected = hA[i] * hB[i];
-        if (fabs(hC[i] - expected) > TOL)
-        {
-            //fprintf( stderr, "%4d: %13.6f * %13.6f wrongly produced %13.6f instead of %13.6f (%13.8f)\n",
-            //i, hA[i], hB[i], hC[i], expected, fabs(hC[i]-expected) );
-            //fprintf( stderr, "%4d:    0x%08x *    0x%08x wrongly produced    0x%08x instead of    0x%08x\n",
-            //i, LookAtTheBits(hA[i]), LookAtTheBits(hB[i]), LookAtTheBits(hC[i]), LookAtTheBits(expected) );
-        }
+        sum += hC[i];
     }
 
-    fprintf(stderr, "%8d\t%4d\t%10d\t%10.3lf GigaMultsPerSecond\n",
+    fprintf(stderr, "%8d\t%4d\t%10d\t%10.3lf\n",
             NUM_ELEMENTS, LOCAL_SIZE, NUM_WORK_GROUPS, (double)NUM_ELEMENTS / (time1 - time0) / 1000000000.);
 
 #ifdef WIN32
