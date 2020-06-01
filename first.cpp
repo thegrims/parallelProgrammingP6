@@ -217,7 +217,7 @@ main( int argc, char *argv[ ] )
 		float expected = (hA[i] * hB[i]) + hD[i];
 		if( fabs( hC[i] - expected ) > TOL )
 		{
-			// fprintf( stderr, "input didn't match output");
+			fprintf( stderr, "input didn't match output\n");
 			//fprintf( stderr, "%4d: %13.6f * %13.6f wrongly produced %13.6f instead of %13.6f (%13.8f)\n",
 				//i, hA[i], hB[i], hC[i], expected, fabs(hC[i]-expected) );
 			//fprintf( stderr, "%4d:    0x%08x *    0x%08x wrongly produced    0x%08x instead of    0x%08x\n",
